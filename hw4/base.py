@@ -19,20 +19,20 @@ def main():
    grid = occ_grid.Grid(60, 60, occ_grid.EMPTY)
    Robbers, Bank, moneys = create.createEntities(grid)
    sol.placeEntities(grid, Robbers, Bank, moneys)
-            
-         
+
+
    while 1:
       for event in pygame.event.get():
          if event.type == QUIT: sys.exit()
 
       controller.reset(grid, Robbers, Bank, moneys)
       create.resourceEffect(grid, event, moneys)
-      
+
       images.draw_sprites(screen, grid, images.CELL_SIZE)
       pygame.display.flip()
       create.resourceEffect(grid, event, Bank)
       sol.updateEntities(grid, Robbers, Bank, moneys)
-      
+
 
 if __name__ == '__main__':
    main()
