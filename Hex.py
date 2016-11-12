@@ -1,15 +1,25 @@
 ### Data about the Hexes ###
-import HashTable, Point, Globals
+import HashTable, Point, Globals, random
 
 class HexCell:
     def __init__(self, q_pos, r_pos):
         self.point = Point.A_Point(q_pos, r_pos)
+        self.tile = random.randint(0,3)
+        self.value = random.randint(1,9)
+
 
     def getKey(self):
         return str(self.point.x)+","+str(self.point.y)
 
     def getPos(self):
         return self.point
+
+    def getTile(self):
+        return self.tile
+
+    def getValue(self):
+        return self.value
+
 
 class HexGrid:
     def __init__(self, radius=Globals.MAP_RADIUS):
