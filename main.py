@@ -2,7 +2,7 @@
 # Version: 0.0.1
 # Date: 2016-07-13
 
-import sys, os, pygame, math, Globals
+import sys, os, pygame, math, Globals, Hex, Point
 
 
 def main():
