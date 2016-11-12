@@ -1,18 +1,21 @@
 ### Data about the Hexes ###
-import HashTable, Point
+import HashTable, Point, Globals
 
 class HexCell:
     def __init__(self, q_pos, r_pos):
-        self.point = A_Point(q_pos, r_pos)
+        self.point = Point.A_Point(q_pos, r_pos)
+
+    def getKey(self):
+        return str(self.point.x)+","+str(self.point.y)
 
     def getPos(self):
-        return str(self.q)+","+str(self.r)
-
+        return self.point
 
 class HexGrid:
-    def __init__(self, radius=MAP_RADIUS):
+    def __init__(self, radius=Globals.MAP_RADIUS):
         self.radius = radius
         self.hexTable = HashTable.HashTable((6*((self.radius*(self.radius+1))/2))+1)
+        self.generateGrid()
 
     def generateGrid(self):
         z = 0
@@ -21,7 +24,6 @@ class HexGrid:
                 h = HexCell(x,y)
                 p = str(x)+","+str(y)
                 self.hexTable.set(p,h)
-                print p
             z -= 1
         z = self.radius
         for x in range(1, self.radius+1):
@@ -29,12 +31,14 @@ class HexGrid:
                 h = HexCell(x,y)
                 p = str(x)+","+str(y)
                 self.hexTable.set(p,h)
-                print p
             z -= 1
 
-    def setHex(h):
-        hexTable.set(h.getPos(),h)
+    def setHex(self, h):
+        self.hexTable.set(h.getPos(),h)
 
 
-    def getHex(p):
-        return hexTable.get(p)
+    def getHex(self, p):
+        return self.hexTable.get(p)
+
+    def getTable(self):
+        return self.hexTable
