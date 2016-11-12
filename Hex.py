@@ -19,7 +19,7 @@ class HexGrid:
 
     def generateGrid(self):
         z = 0
-        for x in range(-self.radius, self.radius+1):
+        for x in range(-self.radius, 1):
             for y in range(z, self.radius+1):
                 h = HexCell(x,y)
                 p = str(x)+","+str(y)
@@ -31,6 +31,7 @@ class HexGrid:
                 h = HexCell(x,y)
                 p = str(x)+","+str(y)
                 self.hexTable.set(p,h)
+                #print "FUCK ME"
             z -= 1
 
     def setHex(self, h):
