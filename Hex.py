@@ -6,7 +6,9 @@ class HexCell:
         self.point = Point.A_Point(q_pos, r_pos)
         self.tile = random.randint(0,3)
         self.value = random.randint(1,9)
-
+        self.occupied = 0
+        self.occImage = None
+        self.resources = self.value
 
     def getKey(self):
         return str(self.point.x)+","+str(self.point.y)
@@ -20,6 +22,26 @@ class HexCell:
     def getValue(self):
         return self.value
 
+    def setResources(self,val):
+        self.resources -= val
+
+    def resetResources(self):
+        self.resources = self.value
+
+    def getResources(self):
+        return self.resources
+
+    def isOccupied(self):
+        return self.occupied
+
+    def setOccupied(self, val):
+        self.occupied = val
+
+    def setOccImg(self, img):
+        self.occImage = img
+
+    def getOccImg(self):
+        return self.occImage
 
 class HexGrid:
     def __init__(self, radius=Globals.MAP_RADIUS):
@@ -41,7 +63,6 @@ class HexGrid:
                 h = HexCell(x,y)
                 p = str(x)+","+str(y)
                 self.hexTable.set(p,h)
-                #print "FUCK ME"
             z -= 1
 
     def setHex(self, h):
