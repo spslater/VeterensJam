@@ -77,10 +77,9 @@ def draw(screen, center, grid, players):
             screen.blit(occupied, occPos)
 
     for player in players:
-        print player.num
         if player.num != 0:
             playPos = grid.getHex(player.getPos()).getPos().toPixel().getPos()
-            realPos = (int(round(center[0]+pixelPos[0]-cs*0)), int(round(center[1]+pixelPos[1]-cs*0.75)))
+            realPos = (int(round(center[0]+playPos[0]-cs*0)), int(round(center[1]+playPos[1]-cs*0.75)))
 
             playImg = pygame.transform.scale(player.getPlayerImg(), (int(round(cs*1.0)), int(round(cs*1.0))))
             screen.blit(playImg, realPos)

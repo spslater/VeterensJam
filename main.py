@@ -17,9 +17,9 @@ def main():
     screen = pygame.display.set_mode(size)
     keys = pygame.key.get_pressed()
     grid = Hex.HexGrid(mr)
-    p0 = Player.player(0,(mr*mr,mr*mr))
-    p1 = Player.player(1,(-mr,0))
-    p2 = Player.player(2,(mr,0))
+    p0 = Player.player(0,(mr*mr,mr*mr), grid)
+    p1 = Player.player(1,(-mr,0), grid)
+    p2 = Player.player(2,(mr,0), grid)
     players = [p0,p1,p2]
 
     while True:

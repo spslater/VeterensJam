@@ -9,6 +9,13 @@ class HexCell:
         self.occupied = 0
         self.occImage = None
         self.resources = self.value
+        self.playerOn = 0
+
+    def getPlayerOn(self):
+        return self.playerOn
+
+    def setPlayerOn(self, val):
+        self.playerOn = val
 
     def getKey(self):
         return str(self.point.x)+","+str(self.point.y)
