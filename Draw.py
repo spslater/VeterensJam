@@ -20,6 +20,20 @@ NUM8 = pygame.image.load(os.path.join("assets", "text_8.png"))
 NUM9 = pygame.image.load(os.path.join("assets", "text_9.png"))
 
 
+DR1 = pygame.image.load(os.path.join("assets", "dRed1.png"))
+DR2 = pygame.image.load(os.path.join("assets", "dRed2.png"))
+DR3 = pygame.image.load(os.path.join("assets", "dRed3.png"))
+DR4 = pygame.image.load(os.path.join("assets", "dRed4.png"))
+DR5 = pygame.image.load(os.path.join("assets", "dRed5.png"))
+DR6 = pygame.image.load(os.path.join("assets", "dRed6.png"))
+DW1 = pygame.image.load(os.path.join("assets", "dWhi1.png"))
+DW2 = pygame.image.load(os.path.join("assets", "dWhi2.png"))
+DW3 = pygame.image.load(os.path.join("assets", "dWhi3.png"))
+DW4 = pygame.image.load(os.path.join("assets", "dWhi4.png"))
+DW5 = pygame.image.load(os.path.join("assets", "dWhi5.png"))
+DW6 = pygame.image.load(os.path.join("assets", "dWhi6.png"))
+DEM = pygame.image.load(os.path.join("assets", "dEmty.png"))
+
 
 def getHexBackground(val):
     if val == 0:
@@ -56,6 +70,63 @@ def getResourceNum(val):
     else:
         return NUM0
 
+
+def getDieImg(val, player):
+    if player == 0:
+        return DEM
+    elif val == 1:
+        if player == 1:
+            return DR1
+        elif player == 2:
+            return DW1
+        else:
+            print "bad player"
+            return DIRT
+    elif val == 2:
+        if player == 1:
+            return DR2
+        elif player == 2:
+            return DW2
+        else:
+            print "bad player"
+            return DIRT
+    elif val == 3:
+        if player == 1:
+            return DR3
+        elif player == 2:
+            return DW3
+        else:
+            print "bad player"
+            return DIRT
+    elif val == 4:
+        if player == 1:
+            return DR4
+        elif player == 2:
+            return DW4
+        else:
+            print "bad player"
+            return DIRT
+    elif val == 5:
+        if player == 1:
+            return DR5
+        elif player == 2:
+            return DW5
+        else:
+            print "bad player"
+            return DIRT
+    elif val == 6:
+        if player == 1:
+            return DR6
+        elif player == 2:
+            return DW6
+        else:
+            print "bad player"
+            return DIRT
+    else:
+        print "bad die"
+        return DIRT
+
+
 def draw(screen, center, grid, players):
     keyList = grid.getTable().keys()
     for key in keyList:
@@ -83,3 +154,19 @@ def draw(screen, center, grid, players):
 
             playImg = pygame.transform.scale(player.getPlayerImg(), (int(round(cs*1.0)), int(round(cs*1.0))))
             screen.blit(playImg, realPos)
+
+
+
+def drawDie(screen, val, player):
+    dieImg = pygame.transform.scale(getDieImg(val, player), (int(round(cs*1.0)), int(round(cs*1.0))))
+    if player == 0:
+        dieLoc01 = (int(round(cs*0.5)),int(round(screen.get_height()-cs*1.5)))
+        dieLoc02 = (int(round(screen.get_width()-cs*1.5)),int(round(screen.get_height()-cs*1.5)))
+        screen.blit(dieImg, dieLoc01)
+        screen.blit(dieImg, dieLoc02)
+    else:
+        if player == 1:
+            dieLoc = (int(round(cs*0.5)),int(round(screen.get_height()-cs*1.5)))
+        elif player == 2:
+            dieLoc = (int(round(screen.get_width()-cs*1.5)),int(round(screen.get_height()-cs*1.5)))
+        screen.blit(dieImg, dieLoc)

@@ -1,4 +1,4 @@
-import pygame, os, random, sys
+import pygame, os, random, sys, Draw
 
 class player:
     def __init__(self, num, pos, grid, score = 0):
@@ -61,16 +61,15 @@ class player:
         return self.claimedImage
 
 
-    def playTurn(self,grid, players):
+    def playTurn(self,grid, players, scene):
         dice = random.randint(1,6)
-        #print "Die Roll: ", dice
         hexElem = grid.getHex(str(self.getPos()))
         print hexElem.isOccupied()
         if hexElem.isOccupied() != self.num:
             hexElem.setResources(dice)
+            Draw.drawDie(scene, dice, self.num)
         else:
             print "Pick another space"
-        #print "resource: ", hexElem.getResources()
         if hexElem.getResources() <= 0:
             hexElem.resetResources()
             if hexElem.isOccupied() != 0 and hexElem.isOccupied() != self.num:
@@ -80,4 +79,3 @@ class player:
                 hexElem.setOccupied(self.num)
                 hexElem.setOccImg(self.getClaimedImg())
                 self.addScore(dice)
-        #print "Resource Value: ", hexElem.getResources()

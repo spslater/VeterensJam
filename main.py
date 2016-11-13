@@ -2,14 +2,17 @@
 # Version: 0.0.1
 # Date: 2016-07-13
 
-import sys, os, pygame, math, Globals, Hex, Point, Draw, Player, Control
+import sys, os, pygame, math, Globals, Hex, Point, Draw, Player, Control, TitleControl, TitleScreen
 
 cs = Globals.CELL_SIZE
 mr = Globals.MAP_RADIUS
-
+bgc = (0,0,255)
 
 def main():
     pygame.init()
+    pygame.font.init()
+    pygame.mixer.init()
+    gameFont = pygame.font.Font(os.path.join("assets", "font.ttf"),int(cs/1.5))
     m_width = int(round(((mr*cs*math.sqrt(3.0))+cs)*2))
     m_height = int(round(((mr*cs)+((math.ceil(mr/2.0)+1)*cs))*2))
     size = m_width, int(round(m_height*1.25))
@@ -22,15 +25,32 @@ def main():
     p2 = Player.player(2,(mr,0), grid)
     players = [p0,p1,p2]
 
+    background = pygame.Surface((m_width,m_height))
+
+    scene = 0
+
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT: sys.exit()
+        screen.blit(background, (0,0))
+        if scene == 0:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    scene = TitleControl.keyProcess(event.key, scene)
 
-            if event.type == pygame.KEYDOWN:
-                Control.keyProcess(event.key,players, grid)
+            TitleScreen.draw(screen, gameFont)
 
-        Draw.draw(screen, center, grid, players)
+        elif scene == 1:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    Control.keyProcess(event.key, players, grid, screen)
+
+            Draw.draw(screen, center, grid, players)
+
         pygame.display.flip()
+
 
 if __name__ == '__main__':
     main()

@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, Draw
 
 P1UL = pygame.K_q
 P1UR = pygame.K_w
@@ -15,12 +15,13 @@ P2DL = pygame.K_PERIOD
 P2DR = pygame.K_SLASH
 
 
-def keyProcess(key, players, grid):
+def keyProcess(key, players, grid, scene):
+    Draw.drawDie(scene, 1, 0)
     if key == pygame.K_LSHIFT:
-        players[1].playTurn(grid, players)
+        players[1].playTurn(grid, players, scene)
         print "P1 Submits Move"
     if key == pygame.K_RSHIFT:
-        players[2].playTurn(grid, players)
+        players[2].playTurn(grid, players, scene)
         print "P2 Submits Move"
     if key == P1UL:
         players[1].setPos(grid,0,-1)
