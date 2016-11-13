@@ -1,5 +1,8 @@
 ### Data about the Hexes ###
-import HashTable, Point, Globals, random
+import HashTable, Point, Globals, random, Player
+
+cs = Globals.CELL_SIZE
+mr = Globals.MAP_RADIUS
 
 class HexCell:
     def __init__(self, q_pos, r_pos):
@@ -81,3 +84,14 @@ class HexGrid:
 
     def getTable(self):
         return self.hexTable
+
+
+class initGame:
+    def __init__(self):
+        self.grid = HexGrid(mr)
+        self.p0 = Player.player(0,(mr*mr,mr*mr), self.grid)
+        self.p1 = Player.player(1,(-mr,0), self.grid)
+        self.p2 = Player.player(2,(mr,0), self.grid)
+        self.players = [self.p0,self.p1,self.p2]
+
+        self.winnner = self.p0.num

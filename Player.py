@@ -11,11 +11,18 @@ class player:
         try:
             grid.getHex(self.getPos()).setPlayerOn(self.num)
         except KeyError:
-            print "Bad Player Loc"
+            pass
+            #print "Bad Player Loc"
 
 
     def addScore(self, val):
         self.score += val
+
+    def getScore(self):
+        return self.score
+
+    def setScore(self):
+        self.score = 0
 
     def movePlayer(self,nPos):
         self.pos = nPos

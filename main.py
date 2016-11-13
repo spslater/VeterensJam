@@ -7,6 +7,7 @@ import sys, os, pygame, math, Globals, Hex, Point, Draw, Player, Control, TitleC
 cs = Globals.CELL_SIZE
 mr = Globals.MAP_RADIUS
 bgc = (0,0,255)
+ws = Globals.WINNING_SCORE
 
 def main():
     pygame.init()
@@ -19,19 +20,15 @@ def main():
     center = int(round(size[0]/2.0)), int(round((size[1]/2.0)/1.25))
     screen = pygame.display.set_mode(size)
     keys = pygame.key.get_pressed()
-    grid = Hex.HexGrid(mr)
-    p0 = Player.player(0,(mr*mr,mr*mr), grid)
-    p1 = Player.player(1,(-mr,0), grid)
-    p2 = Player.player(2,(mr,0), grid)
-    players = [p0,p1,p2]
+
+    game = Hex.initGame()
 
     background = pygame.Surface((m_width,m_height))
-
     scene = 0
 
     while True:
-        screen.blit(background, (0,0))
         if scene == 0:
+            screen.blit(background, (0,0))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -41,13 +38,38 @@ def main():
             TitleScreen.draw(screen, gameFont)
 
         elif scene == 1:
+            screen.blit(background, (0,0))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
-                    Control.keyProcess(event.key, players, grid, screen)
+                    Control.keyProcess(event.key, game.players, game.grid, screen)
+                    if event.key == pygame.K_t:
+                        game.winner = 1
+                        scene = 2
 
-            Draw.draw(screen, center, grid, players)
+            for player in game.players:
+                screen.blit(background, (0,0))
+                if player.getScore() >= ws:
+                    scene = 2
+                    game.winner = player.num
+                    player.setScore()
+
+            Draw.draw(screen, center, game.grid, game.players)
+
+        elif scene == 2:
+            if event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_v:
+                        scene = 0
+                    if event.key == pygame.K_ESCAPE or key == pygame.K_SPACE:
+                        sys.exit()
+                elif event.type == pygame.QUIT:
+                    sys.exit()
+
+            game = Hex.initGame()
+            screen.blit(background, (0,0))
+            Draw.drawEnd(screen, game.players, game.winnner, gameFont)
 
         pygame.display.flip()
 

@@ -1,7 +1,7 @@
 import pygame, sys
 
 def keyProcess(key, s):
-    if key == pygame.K_g:
+    if key == pygame.K_RETURN:
         return 1
     elif key == pygame.K_ESCAPE or key == pygame.K_SPACE:
         sys.exit()

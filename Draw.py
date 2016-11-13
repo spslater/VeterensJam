@@ -136,7 +136,7 @@ def draw(screen, center, grid, players):
         numPos = (int(round(center[0]+pixelPos[0]-cs*0.8)), int(round(center[1]+pixelPos[1]-cs*0.5)))
         bkImage = getHexBackground(hexElem.getTile())
         numImage = getResourceNum(hexElem.getResources())
-        background = pygame.transform.scale(bkImage, (cs*2, cs*2))
+        background = pygame.transform.scale(bkImage, (int(cs*1.95), int(cs*1.95)))
         number = pygame.transform.scale(numImage, (int(round(cs*0.5)), int(round(cs*0.5))))
         screen.blit(background, hexPos)
         screen.blit(number, numPos)
@@ -170,3 +170,18 @@ def drawDie(screen, val, player):
         elif player == 2:
             dieLoc = (int(round(screen.get_width()-cs*1.5)),int(round(screen.get_height()-cs*1.5)))
         screen.blit(dieImg, dieLoc)
+
+
+def drawEnd(screen, players, wNum, font):
+    screenWidth = screen.get_width()
+
+    finishTitle = font.render("Winner!", 1, (255,255,255))
+    titleWidth = finishTitle.get_width()
+    offset = int(-(titleWidth - screenWidth)/2.0)
+    screen.blit(finishTitle, (offset,cs*3))
+
+    wMsg = "50 pts Earned!"
+    congratz = font.render(wMsg, 1, (255,255,255))
+    gratzWidth = congratz.get_width()
+    offset = int(-(gratzWidth - screenWidth)/2.0)
+    screen.blit(congratz, (offset,cs*6))
