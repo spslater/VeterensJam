@@ -1,6 +1,9 @@
 # Veterens Jam
 
-# To-Do
-1. Keyboard movement
-2. Collisions
-3. Invisibility of character when not moving
+## How to Run
+Need Python 2.7.12 and Pygame 1.9.1
+
+## To-Do
+1. Fix End Game Screen
+2. Add Mouse Support
+3. Something Cool
